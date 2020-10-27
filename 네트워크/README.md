@@ -201,4 +201,20 @@
 - 브라우저에 www.naver.com 입력했을 때의 웹 통신의 전체적인 흐름을 설명하시오.
 - E-mail을 사용했을 때의 웹 통신의 전체적인 흐름을 설명하시오.
 
+## HTTP
+- Request 메시지의 구성
+- HTTP 란 무엇인가
+- HyperMedia
+- HTTP 지속연결(keep-alive)이 나온 배경과 파이프라인화(pipelining)에 대해 설명하시오.
+- HTTP 1.1 vs HTTP 2.0 차이
+- HTTP 단점
+- HTTP 약점
+- https handshake 구조
+
+## 보안
+- TLS와 SSL의 차이
+- XSS와 CSRF에 대해 설명하시오.
+- 공통키 암호화와 문제점에 대해서 설명하고, 공개키 암호화와 그 문제점에 대해서 설명하시오. 그리고 이러한 문제들을 모두 해결한 최종 방법의 과정을 설명하시오.
+- CORS에 대해 설명하고, preflight란 무엇인지, CORS 이슈를 해결하는 방법은 무엇인지 설명하시오.
+
 
