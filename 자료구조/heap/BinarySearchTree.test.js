@@ -44,9 +44,7 @@ class BinarySearchTree {
     const heights = [];
     this.getHeights(heights);
 
-    // console.log(heights, 'array');
     const maxHeight = Math.max(...heights);
-    // console.log(maxHeight, 'maxheight');
     this.height = maxHeight;
     return maxHeight;
   }
