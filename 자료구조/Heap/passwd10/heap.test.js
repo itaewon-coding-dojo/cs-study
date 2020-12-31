@@ -7,7 +7,7 @@ class Heap {
   insert(value) {
     this.elements = [...this.elements, value];
     const lastChildIndex = this.elements.length - 1;
-    this.heapifyInsert(lastChildIndex);
+    this.heapifyByInsert(lastChildIndex);
   }
 
   remove() {
@@ -15,36 +15,36 @@ class Heap {
     const root = this.elements[rootIndex];
     this.swap(rootIndex, this.elements.length - 1)
     this.elements = this.elements.slice(rootIndex, -1);
-    this.heapifyRemove(rootIndex);
+    this.heapifyByRemove(rootIndex);
     return root;
   }
 
-  heapifyInsert(childIndex) {
+  heapifyByInsert(childIndex) {
     const parentIndex = Math.ceil(childIndex / 2 - 1);
     const child = this.elements[childIndex];
     const parent = this.elements[parentIndex];
 
     if (child > parent) {
       this.swap(parentIndex, childIndex);
-      this.heapifyInsert(parentIndex)
+      this.heapifyByInsert(parentIndex)
     }
   }
 
-  heapifyRemove(parentIndex) {
+  heapifyByRemove(parentIndex) {
     const leftChildIndex = parentIndex * 2 + 1;
     const rightChildIndex = parentIndex * 2 + 2;
     const parent = this.elements[parentIndex];
-    const leftChild = this.elements[leftChildIndex];
-    const rightChild = this.elements[rightChildIndex];
-    
-    if (leftChild > parent) {
-      this.swap(leftChildIndex, parentIndex);
-      this.heapifyRemove(leftChildIndex);
+    const leftChild = this.elements[leftChildIndex] ?? -1;
+    const rightChild = this.elements[rightChildIndex] ?? -1;
+
+    if (rightChild > leftChild && rightChild > parent) {
+      this.swap(rightChildIndex, parentIndex);
+      this.heapifyByRemove(rightChildIndex);
     }
 
-    if (rightChild > parent) {
-      this.swap(rightChildIndex, parentIndex);
-      this.heapifyRemove(rightChildIndex);
+    if (leftChild > rightChild && leftChild > parent) {
+      this.swap(leftChildIndex, parentIndex);
+      this.heapifyByRemove(leftChildIndex);
     }
   }
 
@@ -61,10 +61,12 @@ test('insert', () => {
   expect(heap.elements).toEqual([8, 6, 7, 4, 5, 3, 2, 1]);
 });
 
-test('remove', () => {
+test.only('remove', () => {
   const heap = new Heap();
-  [6, 5, 3, 1, 8, 7, 2, 4].forEach(value => heap.insert(value));
-  [8, 7, 6, 5, 4, 3, 2, 1].forEach(value => {
+  [9, 6, 7, 4].forEach(value => heap.insert(value));
+  
+  [9, 7, 6, 4].forEach(value => {
+    console.log(heap.elements)
     expect(heap.remove()).toBe(value);
   });
 });
