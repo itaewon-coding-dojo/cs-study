@@ -132,16 +132,6 @@ describe('Trie', () => {
   
   describe('isWord', () => {
     it('checks word existence and validity', () => {
-      newTrie = new Trie()
-      newTrie.add('ball'); 
-      newTrie.add('bat'); 
-      newTrie.add('doll'); 
-      newTrie.add('dork'); 
-      newTrie.add('do'); 
-      newTrie.add('dorm')
-      newTrie.add('send')
-      newTrie.add('sense')
-    
       expect(newTrie.isWord('')).toBe(false);
       expect(newTrie.isWord('doll')).toBe(true)
       expect(newTrie.isWord('dor')).toBe(false)
