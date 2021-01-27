@@ -32,4 +32,3 @@ class RecentSearchList {
 }
 
 export default RecentSearchList;
-  

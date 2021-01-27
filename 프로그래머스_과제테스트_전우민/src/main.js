@@ -1,3 +1,6 @@
 import App from './App.js';
+import InitialSetting from './InitialSetting.js';
 
-new App(document.querySelector("#App"));
+const app = new App(document.querySelector("#App"));
+
+new InitialSetting({ app });

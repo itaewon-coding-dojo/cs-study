@@ -1,21 +1,25 @@
 class ImageInfo {
-  $imageInfo = null;
-  data = null;
-
   constructor({ $target, data }) {
-    const $imageInfo = document.createElement("div");
-    $imageInfo.className = "ImageInfo";
-    this.$imageInfo = $imageInfo;
-    $target.appendChild($imageInfo);
+    this.$imageInfo = document.createElement("div");
+    this.$imageInfo.className = "ImageInfo";
+    
+    $target.appendChild(this.$imageInfo);
 
     this.data = data;
 
     this.render();
   }
 
+  toggleFadeInOut(isFadeIn) {
+    const opacity = isFadeIn ? 1 : 0;
+    
+    this.$imageInfo.style.opacity = opacity;
+  }
+
   setState(nextData) {
     this.data = nextData;
     this.render();
+    setTimeout(() => this.toggleFadeInOut(true), 100);
   }
 
   render() {
@@ -41,14 +45,16 @@ class ImageInfo {
       const closeButton = document.querySelector('.close');
 
       const modalCloseEvent = () => {
-        this.$imageInfo.style.display = "none";
+        this.toggleFadeInOut(false);
         this.$imageInfo.removeEventListener('click', modalOutsideClickEvent);
         window.removeEventListener('keydown', modalCloseKeyboardEvent);
+        setTimeout(() => {
+          this.$imageInfo.style.display = "none";          
+        }, 1000);
       }
 
       const modalCloseKeyboardEvent = ({ keyCode }) => {
         const ESC_KEYCODE = 27;
-
         if (keyCode === ESC_KEYCODE) {
           modalCloseEvent();      
         }

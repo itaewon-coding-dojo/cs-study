@@ -1,15 +1,14 @@
 class Search {
-    constructor({ $target }) {    
-      this.$search = document.createElement('div');
-      this.$search.style.display = 'flex';
-  
-      $target.append(this.$search);
-    }
+  constructor({ $target }) {    
+    this.$search = document.createElement('div');
+    this.$search.style.display = 'flex';
 
-    getElement() {
-      return this.$search;
-    }
+    $target.append(this.$search);
   }
-  
-  export default Search;
-  
+
+  getElement() {
+    return this.$search;
+  }
+}
+
+export default Search;

@@ -22,6 +22,7 @@ class App {
         this.loadingMessage.setState(true);
         this.noResultMessage.setState(false);
         this.recentSearchList.addKeyword(keyword);
+        localStorage.setItem('lastKeyword', keyword);
 
         const { data } = await api.fetchCats(keyword);
 

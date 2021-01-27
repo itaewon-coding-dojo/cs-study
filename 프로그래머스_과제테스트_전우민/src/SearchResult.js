@@ -1,11 +1,6 @@
 class SearchResult {
-  $searchResult = null;
-  data = null;
-  onClick = null;
-
   constructor({ $target, initialData, onClick }) {
     this.$searchResult = document.createElement("div");
-    this.$searchResult.className = "SearchResult";
     $target.appendChild(this.$searchResult);
 
     this.data = initialData;
@@ -20,14 +15,27 @@ class SearchResult {
   }
 
   render() {
-    this.$searchResult.innerHTML = this.data.map((cat, index) => `
-      <div class="item">
-        <img src=${cat.url} alt=${cat.name} data-index=${index} />
-      </div>
-    `).join("");
+    const INITIAL_SHOWING_COUNT = 12;
 
-    this.$searchResult.addEventListener('click', (e) => {
-      if (e.target.localName === 'img') {
+    this.$searchResult.innerHTML = `
+      <div class="SearchResult">
+        ${this.data.map((cat, index) => `
+          <div class="item">
+            <img
+              src="${index < INITIAL_SHOWING_COUNT ? cat.url : ''}"
+              data-src=${cat.url}
+              alt=${cat.name}
+              data-index=${index}
+              title=${cat.name}
+            />
+          </div>
+        `).join("")}
+      </div>
+    `;
+    
+    const resultItems = this.$searchResult.querySelector('.SearchResult');
+    resultItems.addEventListener('click', (e) => {
+      if (e.target.tagName === 'IMG') {
         const index = e.target.dataset.index;
         this.onClick(this.data[index]);
       }
