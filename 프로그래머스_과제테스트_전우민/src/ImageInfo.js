@@ -3,7 +3,7 @@ class ImageInfo {
     this.$imageInfo = document.createElement("div");
     this.$imageInfo.className = "ImageInfo";
     
-    $target.appendChild(this.$imageInfo);
+    $target.append(this.$imageInfo);
 
     this.data = data;
 
@@ -22,57 +22,65 @@ class ImageInfo {
     setTimeout(() => this.toggleFadeInOut(true), 100);
   }
 
+  openModal() {
+    this.$imageInfo.style.display = "block";
+  }
+
+  closeModal() {
+    this.$imageInfo.style.display = "none";
+  }
+
   render() {
-    if (this.data.visible) {
-      const { name, url, temperament, origin } = this.data.image;
-
-      this.$imageInfo.innerHTML = `
-        <div class="content-wrapper">
-          <div class="title">
-            <span>${name}</span>
-            <div class="close">x</div>
-          </div>
-          <img src="${url}" alt="${name}"/>        
-          <div class="description">
-            <div>성격: ${temperament}</div>
-            <div>태생: ${origin}</div>
-          </div>
-        </div>`;
-
-      this.$imageInfo.style.display = "block";
-      
-      const contentWrapper = document.querySelector('.content-wrapper');
-      const closeButton = document.querySelector('.close');
-
-      const modalCloseEvent = () => {
-        this.toggleFadeInOut(false);
-        this.$imageInfo.removeEventListener('click', modalOutsideClickEvent);
-        window.removeEventListener('keydown', modalCloseKeyboardEvent);
-        setTimeout(() => {
-          this.$imageInfo.style.display = "none";          
-        }, 1000);
-      }
-
-      const modalCloseKeyboardEvent = ({ keyCode }) => {
-        const ESC_KEYCODE = 27;
-        if (keyCode === ESC_KEYCODE) {
-          modalCloseEvent();      
-        }
-      }
-      
-      const modalOutsideClickEvent = (e) => {
-        if (!e.target.contains(contentWrapper)) {
-          return;
-        }
-        modalCloseEvent();
-      }
-
-      closeButton.addEventListener('click', modalCloseEvent);
-      window.addEventListener('keydown', modalCloseKeyboardEvent);
-      this.$imageInfo.addEventListener('click', modalOutsideClickEvent);
-    } else {
-      this.$imageInfo.style.display = "none";
+    if (!this.data.visible) {
+      this.closeModal();
+      return;
     }
+
+    const { name, url, temperament, origin } = this.data.image;
+
+    this.$imageInfo.innerHTML = `
+      <div class="content-wrapper">
+        <div class="title">
+          <span>${name}</span>
+          <button class="close">x</button>
+        </div>
+        <img src="${url}" alt="${name}"/>        
+        <div class="description">
+          <p>성격: ${temperament}</p>
+          <p>태생: ${origin}</p>
+        </div>
+      </div>`;
+
+    this.openModal();
+    
+    const contentWrapper = document.querySelector('.content-wrapper');
+    const closeButton = document.querySelector('.close');
+
+    const modalCloseEvent = () => {
+      this.toggleFadeInOut(false);
+      setTimeout(() => this.closeModal(), 1000);
+
+      this.$imageInfo.removeEventListener('click', modalOutsideClickEvent);
+      window.removeEventListener('keydown', modalCloseKeyboardEvent);
+    }
+
+    const modalCloseKeyboardEvent = ({ keyCode }) => {
+      const ESC_KEYCODE = 27;
+      if (keyCode === ESC_KEYCODE) {
+        modalCloseEvent();      
+      }
+    }
+    
+    const modalOutsideClickEvent = ({ target }) => {
+      if (!target.contains(contentWrapper)) {
+        return;
+      }
+      modalCloseEvent();
+    }
+
+    closeButton.addEventListener('click', modalCloseEvent);
+    window.addEventListener('keydown', modalCloseKeyboardEvent);
+    this.$imageInfo.addEventListener('click', modalOutsideClickEvent);
   }
 }
 

@@ -1,3 +1,5 @@
+import ThemeMode from './ThemeMode.js';
+import Banner from './Banner.js';
 import Search from './Search.js';
 import SearchInput from './SearchInput.js';
 import RandomButton from './RandomButton.js';
@@ -13,6 +15,10 @@ class App {
 
   constructor($target) {
     this.$target = $target;
+
+    this.themeMode = new ThemeMode({ $target });
+
+    this.banner = new Banner({ $target });
 
     this.search = new Search({ $target });
 

@@ -1,7 +1,7 @@
 class SearchResult {
   constructor({ $target, initialData, onClick }) {
     this.$searchResult = document.createElement("div");
-    $target.appendChild(this.$searchResult);
+    $target.append(this.$searchResult);
 
     this.data = initialData;
     this.onClick = onClick;

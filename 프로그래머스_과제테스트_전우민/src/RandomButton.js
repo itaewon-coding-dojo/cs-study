@@ -6,9 +6,7 @@ class RandomButton {
 
     $target.append(this.$randomButton);
 
-    this.$randomButton.addEventListener('click', () => {
-      onClick();
-    });
+    this.$randomButton.addEventListener('click', onClick);
   }
 }
 
